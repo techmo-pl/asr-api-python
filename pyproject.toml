@@ -1,0 +1,21 @@
+[build-system]
+requires = ["grpcio-tools>=1.43.0", "setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asr-api"
+description = "Techmo ASR API (public)"
+dynamic = ["version"]
+readme = { file = "README.md", content-type = "text/markdown" }
+authors = [{ name = "Techmo sp. z o.o", email = "kontakt@techmo.pl" }]
+requires-python = ">=3.8"
+dependencies = ["grpcio>=1.43.0", "protobuf<4,>=3.18.1"]
+
+[project.urls]
+repository = "https://github.com/techmo-pl/asr-api-python"
+
+[tool.setuptools.dynamic]
+version = { attr = "asr_api.VERSION.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["asr_api*", "google*", "techmo*"]
