@@ -3,7 +3,7 @@ requires = ["grpcio-tools>=1.49.4,<1.63", "setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "asr-api"
+name = "techmo-asr-api"
 description = "Techmo ASR API (public)"
 dynamic = ["version"]
 readme = { file = "README.md", content-type = "text/markdown" }
