@@ -1,6 +1,6 @@
 # Changelog of ASR API (Python)
 
-## [0.0.1] - 2024-08-14
+## [1.0.0] - 2024-08-14
 
 ### Added
 
