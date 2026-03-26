@@ -1,12 +1,12 @@
 # ASR API (Python)
 
-The collection of gRPC APIs for Techmo ASR supplied as a Python package.
+The collection of gRPC APIs for Techmo ASR solutions supplied as a Python package.
 
 ## Setup
 
 The project can be used as-is and does not require any additional setup.
 
-## Requirements
+### Requirements
 
 - [Python](https://www.python.org/) >=3.8
 
@@ -23,6 +23,23 @@ pip install --require-virtualenv --upgrade pip
 pip install --require-virtualenv .
 ```
 
+*For basic development use, consider convenient `./install.sh`.*
+
+## Running tests
+
+Proto stubs must be generated before running tests. Use `./install.sh` once, then invoke tox:
+
+```sh
+./install.sh
+uvx --with "tox-uv>=1" tox
+```
+
+To run a single Python version:
+
+```sh
+uvx --with "tox-uv>=1" tox -e py312
+```
+
 ## Usage
 
 ### Import
@@ -30,6 +47,14 @@ pip install --require-virtualenv .
 The package provides a precompiled collection of `.proto` files that can be imported directly or through the alias modules.
 
 Example:
+
+- direct import
+
+```python
+>>> from techmo.asr.api.v1p1 import asr_pb2 as api
+>>> hasattr(api, "StreamingRecognizeRequest")
+True
+```
 
 - import from an alias module
 

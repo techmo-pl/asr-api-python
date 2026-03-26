@@ -1,8 +1,10 @@
 build/
 *.egg-info/
 .eggs/
+.tox/
 google/
 __pycache__/
 techmo/
 .venv/
 .vscode/
+pre-commit/
