@@ -8,6 +8,26 @@ _PathLike = Union[str, bytes, "os.PathLike[Any]"]
 _PathLikes = Sequence[_PathLike]
 
 
+def _update_submodule(
+    submodule_path: _PathLike,
+    git_submodule_update_options: Sequence[str] = ("--init", "--depth", "1", "--"),
+    working_directory_path: Optional[_PathLike] = None,
+) -> None:
+    import subprocess
+
+    if (Path(str(working_directory_path) if working_directory_path else ".") / str(submodule_path) / ".git").exists():
+        return
+
+    if (
+        subprocess.call(
+            command := (("git", "submodule", "update") + tuple(git_submodule_update_options) + (str(submodule_path),)),
+            cwd=working_directory_path,
+        )
+        != 0
+    ):
+        raise Exception(f"error: {command} failed")
+
+
 def _protoc(*args: str) -> None:
     import grpc_tools
     from grpc_tools import protoc
@@ -47,23 +67,24 @@ def _build_package_protos(
     )
 
 
+_update_submodule("./submodules/asr-api")
 _build_package_protos(
     (
-        "./proto/google/rpc/status.proto",
-        "./proto/techmo/api/status.proto",
-        "./proto/techmo/asr/api/dictation/asr.proto",
-        "./proto/techmo/asr/api/v1/asr.proto",
-        "./proto/techmo/asr/api/v1p1/asr.proto",
+        "./submodules/asr-api/proto/google/rpc/status.proto",
+        "./submodules/asr-api/proto/techmo/api/status.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/dictation/asr.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/v1/asr.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/v1p1/asr.proto",
     ),
-    import_directory_paths=("./proto",),
+    import_directory_paths=("./submodules/asr-api/proto",),
 )
 _build_package_grpc_protos(
     (
-        "./proto/techmo/asr/api/dictation/asr.proto",
-        "./proto/techmo/asr/api/v1/asr.proto",
-        "./proto/techmo/asr/api/v1p1/asr.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/dictation/asr.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/v1/asr.proto",
+        "./submodules/asr-api/proto/techmo/asr/api/v1p1/asr.proto",
     ),
-    import_directory_paths=("./proto",),
+    import_directory_paths=("./submodules/asr-api/proto",),
 )
 
 setuptools.setup()

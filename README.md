@@ -4,7 +4,11 @@ The collection of gRPC APIs for Techmo ASR solutions supplied as a Python packag
 
 ## Setup
 
-The project can be used as-is and does not require any additional setup.
+Run once after cloning to initialise the submodule:
+
+```sh
+./setup.sh
+```
 
 ### Requirements
 
